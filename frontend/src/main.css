@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+.primary-btn {
+  @apply px-4 py-2 bg-blue-600 hover:bg-blue-500 transition-colors text-neutral-50 text-center rounded cursor-pointer;
+}
+.secondary-btn {
+  @apply px-4 py-2 bg-blue-500 hover:bg-blue-400 transition-colors text-neutral-50 text-center rounded cursor-pointer;
+}
+.danger-btn {
+  @apply px-4 py-2 bg-red-500 hover:bg-red-400 transition-colors text-neutral-50 text-center rounded cursor-pointer;
+}
+.light-btn {
+  @apply px-4 py-2 bg-neutral-50 hover:bg-blue-400 text-neutral-800 hover:text-neutral-50 border-2 border-blue-400 transition-colors text-center rounded cursor-pointer;
+}
+
+.th,
+.td {
+  @apply py-2 px-1 text-start;
+}
+.hr {
+  @apply md:m-24 my-24 mx-12;
+}
