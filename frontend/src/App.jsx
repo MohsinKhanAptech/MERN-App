@@ -8,15 +8,17 @@ function App() {
   return (
     <div className="w-dvw h-dvh flex flex-col justify-center items-center">
       <h1 className="text-6xl font-medium mb-8">MERN APP</h1>
-      <Link to={'/user'} className="primary-btn">
-        User
-      </Link>
-      <button
-        className="primary-btn"
-        onClick={() => addToast(`hi`, `hello 👋👋`)}
-      >
-        Push Toast
-      </button>
+      <div className="flex flex-col gap-2">
+        <Link to={'/user'} className="primary-btn">
+          User
+        </Link>
+        <button
+          className="primary-btn"
+          onClick={() => addToast(`hi`, `hello 👋👋`)}
+        >
+          Push Toast
+        </button>
+      </div>
     </div>
   );
 }

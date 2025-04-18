@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import axios from 'axios';
+import { ToastContext } from './utils/contexts';
 
 function User() {
   const [name, setName] = useState('');
@@ -9,6 +10,8 @@ function User() {
   const [password, setPassword] = useState('');
   const [users, setUsers] = useState([]);
   const [editingUserID, setEditingUserID] = useState(null);
+
+  const addToast = useContext(ToastContext);
 
   const SERVER_URL = 'http://localhost:4000';
 
@@ -34,9 +37,12 @@ function User() {
 
         await axios.post(`${SERVER_URL}/users/${editingUserID}`, formData);
 
+        addToast(`Update Successful`, `User: ${name} updated`);
+
         clearInput();
       } catch (error) {
         console.log(error);
+        addToast(`Updated Failed`, `${error}`);
       } finally {
         setEditingUserID(null);
       }
@@ -47,9 +53,12 @@ function User() {
 
         await axios.post(`${SERVER_URL}/users`, formData);
 
+        addToast(`Add Successful`, `User: ${name} added`);
+
         clearInput();
       } catch (error) {
         console.log(error);
+        addToast(`Add Failed`, `${error}`);
       }
     }
 
@@ -62,6 +71,7 @@ function User() {
       setUsers(res.data);
     } catch (error) {
       console.log(error);
+      addToast(`Fetching Users Failed`, `${error}`);
     }
   }
 
@@ -78,9 +88,13 @@ function User() {
   async function deleteUser(id) {
     try {
       await axios.delete(`${SERVER_URL}/users/${id}`);
+
+      addToast(`Delete Successful`, `User: ${name} deleted`);
+
       fetchUsers();
     } catch (error) {
       console.log(error);
+      addToast(`Delete Failed`, `${error}`);
     }
   }
 
