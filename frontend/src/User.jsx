@@ -42,7 +42,7 @@ function User() {
         clearInput();
       } catch (error) {
         console.log(error);
-        addToast(`Updated Failed`, `${error}`);
+        addToast(`Update Failed`, `${error}`);
       } finally {
         setEditingUserID(null);
       }
@@ -85,7 +85,7 @@ function User() {
     setEditingUserID(user._id);
   }
 
-  async function deleteUser(id) {
+  async function deleteUser(id, name) {
     try {
       await axios.delete(`${SERVER_URL}/users/${id}`);
 
@@ -186,7 +186,7 @@ function User() {
                     </button>
                     <button
                       className="danger-btn"
-                      onClick={() => deleteUser(user._id)}
+                      onClick={() => deleteUser(user._id, user.name)}
                     >
                       Delete
                     </button>

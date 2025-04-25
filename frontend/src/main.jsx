@@ -6,6 +6,7 @@ import './main.css';
 import App from './App';
 import User from './User';
 import ToastProvider from './Components/ToastProvider';
+import Role from './Role';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/" element={<App />} />
         <Route path="/home" element={<App />} />
         <Route path="/user" element={<User />} />
+        <Route path="/role" element={<Role />} />
       </Routes>
     </ToastProvider>
   </BrowserRouter>
