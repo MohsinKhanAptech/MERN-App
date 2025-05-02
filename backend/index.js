@@ -30,18 +30,19 @@ app.get('/', async (req, res) => {
 });
 // users fetch
 app.get('/users', async (req, res) => {
-  let data = await UserModel.find({});
+  let data = await UserModel.find().populate('role', 'name');
   res.status(200).json(data);
 });
 // users create
 app.post('/users', async (req, res) => {
   try {
-    const { name, contact, email, password } = req.body;
+    const { name, contact, email, password, role } = req.body;
     const user = new UserModel({
       name,
       contact,
       email,
       password,
+      role,
     });
     let data = await user.save();
     res.status(201).json(data);
@@ -54,10 +55,10 @@ app.post('/users', async (req, res) => {
 app.post('/users/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, contact, email, password } = req.body;
+    const { name, contact, email, password, role } = req.body;
     let data = await UserModel.findByIdAndUpdate(
       id,
-      { name, contact, email, password },
+      { name, contact, email, password, role },
       { new: true }
     );
     res.status(200).json(data);

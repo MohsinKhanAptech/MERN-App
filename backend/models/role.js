@@ -6,7 +6,8 @@ const Role = new mongoose.Schema({
     required: true,
     trim: true,
     lowercase: true,
+    unique: true,
   },
 });
-const RoleModel = mongoose.model('Role', Role);
+const RoleModel = mongoose.model('roles', Role);
 export default RoleModel;

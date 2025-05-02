@@ -8,7 +8,9 @@ function User() {
   const [contact, setCotnact] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
   const [users, setUsers] = useState([]);
+  const [roles, setRoles] = useState([]);
   const [editingUserID, setEditingUserID] = useState(null);
 
   const addToast = useContext(ToastContext);
@@ -17,6 +19,7 @@ function User() {
 
   useEffect(() => {
     fetchUsers();
+    fetchRoles();
   }, []);
 
   async function clearInput() {
@@ -24,6 +27,7 @@ function User() {
     setCotnact('');
     setEmail('');
     setPassword('');
+    setRole('');
     setEditingUserID(null);
   }
 
@@ -33,7 +37,7 @@ function User() {
     if (editingUserID) {
       // update
       try {
-        const formData = { name, contact, email, password };
+        const formData = { name, contact, email, password, role };
 
         await axios.post(`${SERVER_URL}/users/${editingUserID}`, formData);
 
@@ -49,7 +53,7 @@ function User() {
     } else {
       // create
       try {
-        const formData = { name, contact, email, password };
+        const formData = { name, contact, email, password, role };
 
         await axios.post(`${SERVER_URL}/users`, formData);
 
@@ -82,6 +86,7 @@ function User() {
     setCotnact(user.contact);
     setEmail(user.email);
     setPassword(user.password);
+    setRole(user.role);
     setEditingUserID(user._id);
   }
 
@@ -97,6 +102,15 @@ function User() {
       addToast(`Delete Failed`, `${error}`);
     }
   }
+
+  const fetchRoles = async (e) => {
+    try {
+      const res = await axios.get(`${SERVER_URL}/roles`);
+      setRoles(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <>
@@ -144,6 +158,19 @@ function User() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <select
+            name="role"
+            id="role"
+            value={role}
+            className="p-2 border-2 border-neutral-400 rounded"
+            onChange={(e) => setRole(e.target.value)}
+          >
+            {roles.map((role) => (
+              <option key={role._id} value={role._id}>
+                {role.name}
+              </option>
+            ))}
+          </select>
           <button type="submit" className="primary-btn">
             {editingUserID ? 'Update' : 'Submit'}
           </button>
@@ -165,6 +192,7 @@ function User() {
               <th className="th">Contact</th>
               <th className="th">Email</th>
               <th className="th">Password</th>
+              <th className="th">Role</th>
               <th className="th">Actions</th>
             </tr>
           </thead>
@@ -177,6 +205,7 @@ function User() {
                   <td className="td">{user.contact}</td>
                   <td className="td">{user.email}</td>
                   <td className="td">{user.password}</td>
+                  <td className="td">{user.role.name}</td>
                   <td className="td flex gap-2">
                     <button
                       className="primary-btn"
