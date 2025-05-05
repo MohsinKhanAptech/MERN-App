@@ -103,14 +103,15 @@ function User() {
     }
   }
 
-  const fetchRoles = async (e) => {
+  async function fetchRoles() {
     try {
       const res = await axios.get(`${SERVER_URL}/roles`);
       setRoles(res.data);
+      setRole(res.data[0]._id);
     } catch (e) {
       console.log(e);
     }
-  };
+  }
 
   return (
     <>
@@ -204,7 +205,7 @@ function User() {
                   <td className="td">{user.name}</td>
                   <td className="td">{user.contact}</td>
                   <td className="td">{user.email}</td>
-                  <td className="td">{user.password}</td>
+                  <td className="td truncate max-w-8">{user.password}</td>
                   <td className="td">{user.role.name}</td>
                   <td className="td flex gap-2">
                     <button

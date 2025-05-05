@@ -15,6 +15,9 @@ function App() {
         <Link to={'/role'} className="primary-btn">
           Role
         </Link>
+        <Link to={'/login'} className="primary-btn">
+          Login
+        </Link>
         <button
           className="primary-btn"
           onClick={() => addToast(`hi`, `hello 👋👋`)}
